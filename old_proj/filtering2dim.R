@@ -43,16 +43,6 @@ sqrt(se2)
 hs<-TVP.mle$hessian
   
 all(eigen(hs, only.values = TRUE)$values > 0) # positive definite?
-[1] TRUE
- aVar <- solve(hs) # asymptotic variance/covariance matrix
- aVar
-[,1]     [,2]
-[1,]  9894760 -2457095
-[2,] -2457095  1639308
- sqrt(diag(aVar))
-[1] 3145.594 1280.3
-
-
 
 # fitted ss model Filtering with estimated values
 TVP.dlm <- buildTVP1(TVP.mle$par, X)
@@ -77,7 +67,7 @@ colnames(alpha.s) = "alpha"
 colnames(beta.s) = "beta"
 colnames(gamma.s) = "gamma"
 
-> # extract std errors - dlmSvd2var gives list of MSE matrices
+# extract std errors - dlmSvd2var gives list of MSE matrices
   mse.list = dlmSvd2var(TVP.s$U.S, TVP.s$D.S)
 
 se.mat = t(sapply(mse.list, FUN=function(x) sqrt(diag(x))))
@@ -94,13 +84,13 @@ e=alpha.s- r
 e.u = e + 1.96*se.xts[,"alpha"]
 e.l = e - 1.96*se.xts[, "alpha"]
 chart.TimeSeries(cbind(alpha.s, a.l, a.u), main="Smoothed estimates of alpha",
-                 , colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(alpha),xlab="")
+                colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(alpha),xlab="")
 fitted<-c(0.07390197, -0.04775924)*X
 react<-rowSums(fitted)
 react1<--0.04775924*X[,2]
 react2<-0.07390197*X[,1]
 chart.TimeSeries(cbind(e,react2), main="Smoothed estimates of alpha and observed values",
-                 , colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(alpha),xlab="")
+                  colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(alpha),xlab="")
 
 chart.TimeSeries(cbind(beta.s, b.l, b.u), main="Smoothed estimates of beta",
                  colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(beta),xlab="")
@@ -165,16 +155,8 @@ se2
 hs<-TVP.mle$hessian
 
 all(eigen(hs, only.values = TRUE)$values > 0) # positive definite?
-[1] TRUE
 aVar <- solve(hs) # asymptotic variance/covariance matrix
-aVar
-[,1]     [,2]
-[1,]  9894760 -2457095
-[2,] -2457095  1639308
 sqrt(diag(aVar))
-[1] 3145.594 1280.3
-
-
 
 # fitted ss model Filtering with estimated values
 TVP.dlm <- buildTVP2(TVP.mle$par, X)
