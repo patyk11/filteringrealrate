@@ -33,13 +33,12 @@ s2v = 1
 s2c = 0.01
  tvp.dlm = dlmModReg(X=Design, addInt=TRUE,
                       dV=s2v, dW=c(s2a, s2b,s2c))
-tvp.DLM$G
 
 tvp.dlm[c("FF","V","GG","W","m0","C0")]
 tvp.dlm[c("JFF","JV","JGG","JW")]
 head(tvp.dlm$X)
 
-> # ols fit - constant parameters
+# ols fit - constant parameters
  ols.fit = lm(r ~ Design)
  summary(ols.fit)
 
@@ -101,12 +100,12 @@ c.l = gamma.s - 1.96*se.xts[, "gamma"]
 
 e=alpha.s-r
 chart.TimeSeries(cbind(alpha.s, a.l, a.u), main="Smoothed estimates of alpha",
-                 , colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(alpha),xlab="")
+                  colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(alpha),xlab="")
 
 chart.TimeSeries(cbind(alpha.s,r), main="Smoothed estimates of alpha and observed values",
-                 , col=c("red","green"), lty=c(1,2),ylab=expression(alpha),xlab="")
+                  col=c("red","green"), lty=c(1,2),ylab=expression(alpha),xlab="")
 chart.TimeSeries(cbind(e), main="Smoothed estimates of changed interest rate",
-                 , col=c("red","green"), lty=c(1,2),ylab=expression(alpha),xlab="")
+                  col=c("red","green"), lty=c(1,2),ylab=expression(alpha),xlab="")
 legend("topright", c("Real interest rate(Observed)", "Natural real interest rate (filtered)"),col=c("red","green"),  lty=1, cex=.65)
 chart.TimeSeries(cbind(beta.s, b.l, b.u), main="Smoothed estimates of beta",
                  colorset=c(1,2,2), lty=c(1,2,2),ylab=expression(beta),xlab="")
